@@ -2,12 +2,9 @@
 from IC import IC
 import Reader
 class cu(IC):
-    def recibe_code(self):
-        #pass
-        print("")
     def interpretacion(self):
         #pass
-        print("ARRREEE")
+        print("")
     def main_thread(self):
         '''controls and connects everything'''
         hard_drive = Reader.CardReader()
