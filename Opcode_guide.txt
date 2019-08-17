@@ -1,0 +1,3 @@
+//UPCODE instructions
+There are 2 bytes, the first one indicates the opcode (operation code),
+ the second one is an operand (the data your operating)
