@@ -2,8 +2,6 @@ from IC import IC
 
 class Memory(IC):
     '''Father class to Registers and RAM'''
-    def __init__(self,data):
-        self.data=data
 
 class RAM(Memory):
     '''Random Access Memory'''
@@ -19,18 +17,51 @@ class RAM(Memory):
             self.data_memory[adress]=data 
         else:
             return "Adress out of bounds"
-        
-ram_memory=RAM(data)
+
+ram_memory=RAM()
 
 class Registers(Memory):
     '''Temporary memory handlers
     '''
     list_of_registers=[]
-    def read_enable(self,adress):
-        #gets ram space adress
-        return self.list_of_registers[adress]
-    def write_enable(self,adress,data):
-        self.list_of_registers[adress]=[data]   
+    def read_register(self,registername,selection):
+        if selection=="op":#you can ask for the opcode specifically
+            return (registername[0:4])
+        if selection=="number":#you can ask for the number specifically
+            return (registername[4:8])
+        if selection=="all":#get everything
+            return (registername)
+    def write_register(self,new_data,registername,selection):
+        temporary_list=[]
+        for i in new_data:#turns data into a list so we can overwrite what we want
+            temporary_list.append(i)
+
+        if selection=="1":
+            if len(new_data)==4:  #checks that the opcode length is correct
+                for i in range(4):
+                    temporary_list[i]=new_data[i] 
+                registername="".join(temporary_list)#inserts it as string
+            else:
+                return("OPCODE length not acceptable")
+
+        if selection=="2":#you can write the number specifically
+            if len(new_data)==4:  #checks that the number size is correct
+                for i in range(4):
+                    temporary_list[4+i]=new_data[i]
+                registername="".join(temporary_list)
+            else:
+                return ("Number size not acceptable")
+
+        if selection=="3":#input everything
+            if len(new_data)==8:
+                for i in range(len(new_data)):
+                    temporary_list[i]=(new_data[i])
+                registername="".join(temporary_list)
+            else:
+                return("overflow")
+        
+data=[""]*8
+
 
 
 registerA=Registers(data)
