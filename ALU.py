@@ -2,19 +2,19 @@ from IC import IC
 
 '''Test variables'''
 def test():
-    val1 = 10
+    val1 = int(in1, 2) #imported de CU
     return val1
 
 def test2():
-    val2 = 2
+    val2 = int(in2, 2) #imported de CU
     return val2
 
 def test3():
-    com = 1
+    com = int(in3, 2) #imported de CU
     return com
 
 def test4():
-    signed = False
+    signed #imported de CU, tiene que ser True or False
     return signed
 
 '''Calling Tests''' #no necesario pero me ayuda a entender la logica mejor.
@@ -57,36 +57,33 @@ class ALU(IC):
                 ef = True
         return ef
     def and1(self):
-        if y == True and z == True:
+        if in4 == True and in5 == True: #imported de CU
             return True
         else:
             return False
     def or1(self):
-        if y == True:
+        if in4 == True: #imported de CU
             return True
-        elif z == True:
+        elif in5 == True: #imported de CU
             return True
         else:
             return False
     def not1(self):
-        if y == True:
+        if in4 == True: #imported de CU
             return False
         else:
             return True
+    def int2bin(self):
+        if sm == False:
+            if x.sum1() <= 15 and x.sum1() >= -15 and command == 0:
+                r = ('{0:b}'.format(x.sum1()))
+            if x.sub() <= 15 and x.sub() >= -15 and command == 1:
+                r = ('{0:b}'.format(x.sub()))
+        else:
+            if x.sum1() <= 7 and x.sum1() >= -7 and command == 0:
+                r = ('{0:b}'.format(x.sum1()))
+            if x.sub() <= 7 and x.sub() >= -7 and command == 1:
+                r = ('{0:b}'.format(x.sub()))
+        return r
 
-'''Print of Class ALU'''
 x = ALU()
-if sm == False:
-    if x.sum1() <= 15 and x.sum1() >= -15 and command == 0:
-        print('{0:b}'.format(x.sum1()))
-    if x.sub() <= 15 and x.sub() >= -15 and command == 1:
-        print('{0:b}'.format(x.sub()))
-else:
-    if x.sum1() <= 7 and x.sum1() >= -7 and command == 0:
-        print('{0:b}'.format(x.sum1()))
-    if x.sub() <= 7 and x.sub() >= -7 and command == 1:
-        print('{0:b}'.format(x.sub()))
-
-print("Overflow Flag:", x.overf())
-print("Carry Flag:", x.carryf())
-print("Error Flag:", x.errorf())
