@@ -4,23 +4,18 @@ from IC import IC
 def test(in1):
     val1 = int(in1, 2) #First data variable (translates form binary to integer)
     return val1
-
 def test2(in2):
     val2 = int(in2, 2) #Second data variable (translates form binary to integer)
     return val2
-
 def test3(in3):
     com = in3 #Command variable (Puse Sum como 0, Sub como 1, And como 2, Or como 3 y Not como 4) 
     return com
-
 def test4(signed):
     signed #imported de CU, tiene que ser True or False (almenos que quieran usar 0 y 1, lo puedo cambiar)
     return signed
-
 def test5(in4):
     in4
     return in4
-
 def test6(in5):
     in5
     return in5
