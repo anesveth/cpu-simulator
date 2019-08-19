@@ -17,20 +17,30 @@ def test4(signed):
     signed #imported de CU, tiene que ser True or False (almenos que quieran usar 0 y 1, lo puedo cambiar)
     return signed
 
+def test5(in4):
+    in4
+    return in4
+
+def test6(in5):
+    in5
+    return in5
+
 '''Objects''' #no necesario pero me ayuda a entender la logica mejor.
 y = test() #First data object
 z = test2() #Second data object
 command = test3() #Command object
 sm = test4() #Signed Math data object (tells the ALU if the most significant bit is a value or a sign +/-)
+h = test5()
+i = test6()
 
 '''Class ALU'''
 class ALU(IC):
     def sum1(self):
         result = y + z
-        return result
+        return result, x.overf(), x.carryf(), x.errorf(), x.zerof(), x.negf(), x.and1(), x.or1(), x.not1(), x.int2bin()
     def sub(self):
         result = y - z
-        return result
+        return result, x.overf(), x.carryf(), x.errorf(), x.zerof(), x.negf(), x.and1(), x.or1(), x.not1(), x.int2bin()
     def overf(self): #overflow flag (segun reglas de overflow)
         of = False
         if y > 0 and z > 0 and (x.sum1() < 0 or x.sum1() > 7) or y < 0 and z < 0 and (x.sum1() > 0 or x.sum1() < -7):
@@ -64,26 +74,32 @@ class ALU(IC):
         if sm == True and (x.sum1() < 0 or x.sub() < 0):
             nf = True
         return nf
-    if command == 2:
-        def and1(self, in4, in5): #Checks if both are True.
-            if in4 == True and in5 == True: #Receives two values (Has to be True or False)
-                return True
+    def and1(self): #Checks if both are True.
+        and2 = False
+        if command == 2:
+            if h == True and i == True: #Receives two values (Has to be True or False)
+                and2 == True
             else:
-                return False
-    if command == 3:
-        def or1(self, in4, in5): #Checks if either one is True.
-            if in4 == True: #Receives a value (Has to be True or False)
-                return True
-            elif in5 == True: #Receives another value (Has to be True or False)
-                return True
+                and2 == False
+        return and2
+    def or1(self): #Checks if either one is True.
+        or2 = False
+        if command == 3:
+            if h == True: #Receives a value (Has to be True or False)
+                or2 == True
+            elif i == True: #Receives another value (Has to be True or False)
+                or2 == True
             else:
-                return False
-    if command == 4:
-        def not1(self, in4): #Negates the value (Has to be True or False)
-            if in4 == True: #Receives a value (Has to be True or False)
-                return False
+                or2 == False
+        return or2
+    def not1(self): #Negates the value (Has to be True or False)
+        not2 = False
+        if command == 4:
+            if h == True: #Receives a value (Has to be True or False)
+                not2 == False
             else:
-                return True
+                not2 == True
+        return not2
     def int2bin(self): #changes the integer back into a binary code
         r = 0
         if sm == False:
