@@ -39,7 +39,9 @@ class CardReader(IC):
             return(errors)
         else:
             return 0
-
+    def read_especific_line(self, line_number):
+        self.change_line(line_number)
+        return self.read_line()
     def change_line(self, line_number):
         '''Changes the current line to the one passed, if file not found returns 0'''
         if (self.file != ""):
@@ -68,9 +70,7 @@ class CardReader(IC):
         else:
             self.file = ""
             return 0
-print("\n\nlista de patatas: \n\n")
-card_reader = CardReader()
-print(card_reader.check_code())
+
 
 
 
