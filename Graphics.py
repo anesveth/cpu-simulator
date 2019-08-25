@@ -13,7 +13,7 @@ class graphics(IC):
         # set the window name 
         pygame.display.set_caption('IC simulation') 
         # create a surface object, with the image 
-        self.image = pygame.image.load(r'brain.png') 
+        self.image = pygame.image.load(r'display.png') 
         #creates font to use
         self.font = pygame.font.SysFont("comicsansms", 72)
     def put_text(self, text, x=0, y=0, color=(0,0,0), 
