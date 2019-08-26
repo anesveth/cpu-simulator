@@ -1,4 +1,5 @@
 from IC import IC
+import CPU
 import pygame 
 class graphics(IC):
     def __init__(self):
@@ -128,8 +129,27 @@ class graphics(IC):
             registerDtxt=self.put_text("0000 0000",x=198,y=1309,size=49) #REGISTER D
             print (registerDtxt)
             ############################################## .CODE FILE DISPLAY 
-            codetxt=self.put_text("{} width".format(len("1234567891011121314151617181920212")),x=69,y=120,size=45)
-            print(codetxt)
+            codetxt="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960"
+            lenght_code=len(codetxt)
+            line_start=0#position in string
+            if lenght_code>34:
+                line_space=120#position in display
+                finish_length=34
+                lenght_code_left=lenght_code
+                while lenght_code_left>34: #stops the string displayed from going over the 'Instructios.code' window
+                    displayedtxt=codetxt[line_start:finish_length]
+                    codetxt_displayed=self.put_text("{}".format(displayedtxt),x=69,y=line_space,size=45)
+                    print(codetxt_displayed)
+                    line_space+=40
+                    line_start+=34
+                    finish_length=line_start+34
+                    lenght_code_left=lenght_code_left-34
+                displayedtxt=str(codetxt[line_start:])
+                codetxt_displayed=self.put_text("{}".format(displayedtxt),x=69,y=line_space,size=45)
+                print(codetxt_displayed)
+            #if it's not necessary (because the string lenght won't go over the window)
+            codetxt_displayed=self.put_text("{}".format(codetxt[0:34]),x=69,y=120,size=45)
+            print(codetxt_displayed)
 
 
             for event in pygame.event.get():
