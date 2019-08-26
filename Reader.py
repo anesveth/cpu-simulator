@@ -1,5 +1,16 @@
 from os.path import isfile as file_exist
 from IC import IC #Importing SuperClass
+import yaml 
+
+class YamlReader(IC):
+    '''Reads Bios.yaml initial configuration'''
+    def __init__(self):
+        self.filepath="bios.yml"
+    def yaml_loader(self,filepath):
+        with open(filepath,"r") as config:
+            data=yaml.load(config)
+        return data
+
 class CardReader(IC):
     '''Manages exterior files'''
     #other bouilder is already passed down by the father

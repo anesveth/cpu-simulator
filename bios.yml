@@ -1,0 +1,26 @@
+RAM_NUMBERS: #Original RAM 
+  0
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  11
+  12
+  13
+  14
+  15
+
+clock: 1.2
+
+visualization:
+  code: true
+  RAM: true
+  Registers: true
+  clock: true
+  ALU: false
