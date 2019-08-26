@@ -6,8 +6,11 @@ class Memory(IC):
 class RAM(Memory):
     '''Random Access Memory'''
     def __init__(self, size = 16):
-        self.data_memory=[] * size
+        self.data_memory=["0000"] * size
         self.size = size
+    def easy_read(self, adress):
+        print(adress)
+        return self.data_memory[adress] 
     def read_enable(self,adress):
         #translates bit to int
         adress = int(adress, 2)
@@ -36,6 +39,7 @@ class Registers(Memory):
         if len(new_data)==self.size:  #checks that the opcode length is correct
             self.data=new_data
         else:
+            print("overflow"+str(self.size) + " s "+str(len(new_data)))
             return("overflow")
 
 
