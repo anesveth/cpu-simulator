@@ -64,7 +64,10 @@ class CardReader(IC):
             it returns the next one. If the file is not open itll return 0 '''
         #chequeamos existencia del archivo
         if (self.file != ""):
-            current_line = self.file.readline()
+            current_line = self.file.readline().strip("\n")
+            while current_line.startswith("#"):
+                current_line = self.file.readline().strip("\n")
+            print("CurrentLine: "+current_line)
             return(current_line)
         else:
             return 0
@@ -75,6 +78,7 @@ class CardReader(IC):
     def change_file(self, file_name):
         '''changes the reader's file, leaves the previous file and \
             returns 0 if file not found, 1 for operation succesful'''
+        file_name = file_name+".code"
         if (file_exist(file_name)):
             self.file = open(file_name)
             return 1
