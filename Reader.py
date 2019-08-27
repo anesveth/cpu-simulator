@@ -29,6 +29,12 @@ for i in range(16):
         if len(adress)==3:
             adress="0"+adress
     CPU.intel99.ram.write_enable(adress,ramdata[i])
+CPU.intel99.visualization_code=bool(visualizationdata[0])
+CPU.intel99.visualization_ram=bool(visualizationdata[1])
+CPU.intel99.visualization_registers=bool(visualizationdata[2])
+CPU.intel99.visualization_clock=bool(visualizationdata[3])
+CPU.intel99.visualization_alu=bool(visualizationdata[4])
+
 
 class CardReader(IC):
     '''Manages exterior files'''
