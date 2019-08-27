@@ -1,15 +1,34 @@
 from os.path import isfile as file_exist
 from IC import IC #Importing SuperClass
 import yaml 
+import CPU
 
 class YamlReader(IC):
     '''Reads Bios.yaml initial configuration'''
     def __init__(self):
         self.filepath="bios.yml"
-    def yaml_loader(self,filepath):
-        with open(filepath,"r") as config:
+    def yaml_loader(self):
+        with open(self.filepath,"r") as config:
             data=yaml.load(config)
         return data
+data=YamlReader().yaml_loader()
+### variables to assign to CPU parts
+ramdata=data.get('RAM_NUMBERS')
+ramdata=ramdata.split(' ')
+clockdata=data.get('clock')
+visualizationdata=data.get('visualization')
+visualizationdata=visualizationdata.split(' ')
+##asigns all ram data to each ram space
+for i in range(16):
+    adress=bin(i)[2:]
+    if len(adress)<4:
+        if len(adress)==1:
+            adress="000"+adress
+        if len(adress)==2:
+            adress="00"+adress
+        if len(adress)==3:
+            adress="0"+adress
+    CPU.intel99.ram.write_enable(adress,ramdata[i])
 
 class CardReader(IC):
     '''Manages exterior files'''
