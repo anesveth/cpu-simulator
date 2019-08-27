@@ -5,11 +5,6 @@ import Reader
 import time
 import sys
 class cu(IC):
-    visualization_code=True
-    visualization_ram=True
-    visualization_registers=True
-    visualization_clock=True
-    visualization_alu=True
     def __init__(self):
         '''controls and connects everything'''
         self.Instructions_memory = Reader.CardReader()
@@ -36,6 +31,7 @@ class cu(IC):
         ramdata=data_bios.get('RAM_NUMBERS')
         ramdata=ramdata.split(' ')
         clockdata=data_bios.get('clock')
+        self.clock_time = int(clockdata)
         visualizationdata=data_bios.get('visualization')
         ##asigns all ram data to each ram space
         for i in range(16):
@@ -48,11 +44,11 @@ class cu(IC):
                 if len(adress)==3:
                     adress="0"+adress
             self.ram.write_enable(adress,ramdata[i])
-        visualization_code=visualizationdata['code']
-        visualization_ram=visualizationdata['RAM']
-        visualization_registers=visualizationdata['Registers']
-        visualization_clock=visualizationdata['clock']
-        visualization_alu=visualizationdata['ALU']
+        self.visualization_code=visualizationdata['code']
+        self.visualization_ram=visualizationdata['RAM']
+        self.visualization_registers=visualizationdata['Registers']
+        self.visualization_clock=visualizationdata['clock']
+        self.visualization_alu=visualizationdata['ALU']
         
 
     def decode_execute(self):
@@ -75,7 +71,7 @@ class cu(IC):
             self.registerB.write_register(self.ram.read_enable(data))
         elif(opcode == "0011"):
             #Performs AND between 2-bit registers ID
-            self.ALU.and1(data[0:2], data[2:4])
+            self.registerB.write_register(self.ALU.and1(data[0:2], data[2:4]))
         elif(opcode == "0100"):
             #Immediate Read constant into register A
             self.registerA.write_register(data)
@@ -87,13 +83,14 @@ class cu(IC):
             self.ram.write_enable(self.registerB.read_register(),data)
         elif(opcode == "0111"):
             #Performs OR between 2-bit registers ID
-            self.ALU.or1(data[0:2], data[2:4])
+            self.registerB.write_register(self.ALU.or1(data[0:2], data[2:4]))
         elif(opcode == "1000"):
             #Immediate Read constant into register B
             self.registerB.write_register(data)
         elif(opcode == "1001"):
             #Add two registers, store result into second register
             self.registerB.write_register(self.ALU.sum1(self.registerA.read_register(), self.registerB.read_register()))
+
         elif(opcode == "1010"):
             #Subtract two registers, store result into second register
             self.registerB.write_register(self.ALU.sub(self.registerA.read_register(), self.registerB.read_register()))
@@ -118,9 +115,16 @@ class cu(IC):
     def main_thread(self):
         done = 0
         while(not(done)):
-            print("-"*40)
+            self.pretty_print()
+            done = self.decode_execute()
+            time.sleep(self.clock_time)
+            sys.stdout.flush() 
+    def pretty_print(self):
+        print("-"*40)
+        if (self.visualization_ram):
             for x in range(0,14):
                 print("RAM"+str(x)+": " + self.ram.easy_read(x))
+        if (self.visualization_registers):
             print("instruction_adress_register: " + self.instruction_adress_register.read_register())
             print("registerA: " + self.registerA.read_register())
             print("registerB: " + self.registerB.read_register())
@@ -128,10 +132,22 @@ class cu(IC):
             print("registerD " + self.registerD.read_register())
             print("instruction_register " + self.instruction_register.read_register())
             print("output_register " + self.output_register.read_register())
-            print("-"*40)
+        print("overfl_flag: " + str(self.ALU.overfl_flag))
+        print("carry_flag: " + str(self.ALU.carry_flag))
+        print("error_flag " + str(self.ALU.error_flag))
+        print("zero_flag " + str(self.ALU.zero_flag))
+        print("neg_flag " + str(self.ALU.neg_flag))
+        print("-"*40)
+    def debug(self):
+        done = 0
+        while(not(done)):
+            self.pretty_print()
             done = self.decode_execute()
-            time.sleep(0.5)
-            sys.stdout.flush() 
+            input("Presiona enter para continuar: ")
 
-intel99 = cu()
-intel99.main_thread()
+if __name__ == "__main__":
+    intel99 = cu()
+    if(input("que desea hacer(debug/other): ") == "debug"):
+        intel99.debug()
+    else:
+        intel99.main_thread()
