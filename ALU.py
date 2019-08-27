@@ -2,6 +2,7 @@ from IC import IC
 
 '''Class ALU'''
 class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, minimo -7
+    o = 0
 #-------------------------------------------------------------------------------Arithmetic-------------------------------------------------------------------------
     def sum1(self, data1, data2):
         '''Adds the two values'''
@@ -93,16 +94,20 @@ class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, mini
         andlist1 = list(data3)
         andlist2 = list(data4)
         if andlist1[0] == "1" and andlist2[0] == "1" and andlist1[1] == "1" and andlist2[1] == "1":
+            self.o=1
             return "1" #And is true when the values are both 1.
         else:
+            self.o=0
             return "0"
     def or1(self, data3, data4): 
         '''Checks if either one is True.'''
         andlist1 = list(data3)
         andlist2 = list(data4)
         if (andlist1[0] == "0" and andlist2[0] == "0" and andlist1[1] == "0" and andlist2[1] == "0"):
+            self.o=0
             return "0" #Or is true when both values are not 0.
         else:
+            self.o=1
             return "1"
     def not1(self, data3): 
         '''Negates each bit.'''
