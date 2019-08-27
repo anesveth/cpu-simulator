@@ -30,8 +30,8 @@ class cu(IC):
         ### variables to assign to CPU parts
         ramdata=data_bios.get('RAM_NUMBERS')
         ramdata=ramdata.split(' ')
-        self.clockdata=data_bios.get('clock')
-        self.clock_time = 0.5
+        clockdata=data_bios.get('clock')
+        self.clock_time = int(clockdata)
         visualizationdata=data_bios.get('visualization')
         ##asigns all ram data to each ram space
         for i in range(16):
@@ -132,11 +132,11 @@ class cu(IC):
             print("registerD " + self.registerD.read_register())
             print("instruction_register " + self.instruction_register.read_register())
             print("output_register " + self.output_register.read_register())
-        print("overfl_flag: " + self.ALU.overfl)
-        print("carry_flag: " + self.ALU.negative)
-        print("error_flag " + self.ALU.negative)
-        print("zero_flag " + self.ALU.negative)
-        print("neg_flag " + self.ALU.negative)
+        print("overfl_flag: " + str(self.ALU.overfl_flag))
+        print("carry_flag: " + str(self.ALU.carry_flag))
+        print("error_flag " + str(self.ALU.error_flag))
+        print("zero_flag " + str(self.ALU.zero_flag))
+        print("neg_flag " + str(self.ALU.neg_flag))
         print("-"*40)
 
 
