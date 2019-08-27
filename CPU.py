@@ -138,8 +138,16 @@ class cu(IC):
         print("zero_flag " + str(self.ALU.zero_flag))
         print("neg_flag " + str(self.ALU.neg_flag))
         print("-"*40)
-
+    def debug(self):
+        done = 0
+        while(not(done)):
+            self.pretty_print()
+            done = self.decode_execute()
+            input("Presiona enter para continuar: ")
 
 if __name__ == "__main__":
     intel99 = cu()
-    intel99.main_thread()
+    if(input("que desea hacer(debug/other): ") == "debug"):
+        intel99.debug()
+    else:
+        intel99.main_thread()
