@@ -5,6 +5,12 @@ import Reader
 import time
 import sys
 class cu(IC):
+    visualization_ram=True
+    visualization_registers=True
+    visualization_clock=True
+    visualization_alu=True
+    visualization_code=True
+
     def __init__(self):
         '''controls and connects everything'''
         self.Instructions_memory = Reader.CardReader()
@@ -100,9 +106,7 @@ class cu(IC):
             print("-"*40)
             done = self.decode_execute()
             time.sleep(0.5)
-            sys.stdout.flush()
-            
-        
+            sys.stdout.flush() 
 
 intel99 = cu()
 intel99.main_thread()
