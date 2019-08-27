@@ -1,19 +1,19 @@
 from IC import IC
-import CPU
+# import CPU
 import pygame 
 class graphics(IC):
     def __init__(self):
         pygame.init() 
         self.white = (255, 255, 255)# white background
         # assigning values to X and Y variable 
-        width = 2000
-        height = 1435
+        self.width = 1000
+        self.height = 718
         # create the display surface (display window) 
-        self.display_surface = pygame.display.set_mode((width, height ), pygame.RESIZABLE) 
+        self.display_surface = pygame.display.set_mode((self.width, self.height)) 
         pygame.display.set_caption('IC simulation')# window name 
         # create a surface object, with the image 
         self.image = pygame.image.load(r'display.png') 
-    def put_text(self, text, x=0, y=0, color=(0,0,0),font_type = 'Arial.ttf', size = 40):
+    def put_text(self, text, x=0, y=0, color=(0,0,0),font_type = 'Arial.ttf', size = 25):
         '''displays a text on surface
         returns surface, 0 if failed'''
         try:
@@ -21,6 +21,7 @@ class graphics(IC):
             text = font.render(str(text), True, color)
             self.display_surface.blit(text, (x, y))
             return text
+
         except Exception as e:
             print (str(e))
             return 0
@@ -37,128 +38,113 @@ class graphics(IC):
             self.display_surface.fill(self.white)   
             self.put_image(self.image, 0, 0)
             #DISPLAYING TEXT
-            clocktxt = self.put_text("1.2 Hz",x=1740,y=67,size=60)
+            clocktxt = self.put_text("1.2 Hz",x=865,y=35)
             print (clocktxt) 
             ############################################## RAM (69 downward separation)
-            ################### OPCODE SECTION
-            opcode0txt=self.put_text("0000",x=1505,y=296,size=48)
-            print (opcode0txt) 
-            opcode1txt=self.put_text("0001",x=1505,y=365,size=48)
-            print (opcode1txt) 
-            opcode2txt=self.put_text("0010",x=1505,y=434,size=48)
-            print (opcode2txt) 
-            opcode3txt=self.put_text("0011",x=1505,y=503,size=48)
-            print (opcode3txt) 
-            opcode4txt=self.put_text("0100",x=1505,y=572,size=48)
-            print (opcode4txt) 
-            opcode5txt=self.put_text("0101",x=1505,y=641,size=48)
-            print (opcode5txt) 
-            opcode6txt=self.put_text("0110",x=1505,y=710,size=48)
-            print (opcode6txt) 
-            opcode7txt=self.put_text("0111",x=1505,y=779,size=48)
-            print (opcode7txt) 
-            opcode8txt=self.put_text("1000",x=1505,y=848,size=48)
-            print (opcode8txt) 
-            opcode9txt=self.put_text("1001",x=1505,y=917,size=48)
-            print (opcode9txt) 
-            opcode10txt=self.put_text("1010",x=1505,y=986,size=48)
-            print (opcode10txt) 
-            opcode11txt=self.put_text("1011",x=1505,y=1055,size=48)
-            print (opcode11txt) 
-            opcode12txt=self.put_text("1100",x=1505,y=1124,size=48)
-            print (opcode12txt) 
-            opcode13txt=self.put_text("1101",x=1505,y=1193,size=48)
-            print (opcode13txt) 
-            opcode14txt=self.put_text("1110",x=1505,y=1262,size=48)
-            print (opcode14txt) 
-            opcode15txt=self.put_text("1111",x=1505,y=1331,size=48)
-            print (opcode15txt) 
+            ################### NUMBER OF RAM LOCATION
+            yvalue=148
+            for i in range(16):
+                adress=bin(i)[2:]
+                if len(adress)<4:
+                    if len(adress)==1:
+                        adress="000"+adress
+                    if len(adress)==2:
+                        adress="00"+adress
+                    if len(adress)==3:
+                        adress="0"+adress
+                    opcodeitxt=self.put_text(str(adress),x=760,y=yvalue)
+                    print(opcodeitxt)
+                    yvalue+=35
+                else:
+                    opcodeitxt=self.put_text(str(adress),x=760,y=yvalue)
+                    print(opcodeitxt)
+                    yvalue+=35
             #
             ################### NUMBER SECTION
             #
-            number0txt=self.put_text("0000",x=1765,y=296,size=48)
+            number0txt=self.put_text("0000",x=880,y=148)
             print (number0txt) 
-            number1txt=self.put_text("0001",x=1765,y=365,size=48)
+            number1txt=self.put_text("0001",x=880,y=180)
             print (number1txt) 
-            number2txt=self.put_text("0010",x=1765,y=434,size=48)
+            number2txt=self.put_text("0010",x=880,y=212)
             print (number2txt) 
-            number3txt=self.put_text("0011",x=1765,y=503,size=48)
+            number3txt=self.put_text("0011",x=880,y=248)
             print (number3txt) 
-            number4txt=self.put_text("0100",x=1765,y=572,size=48)
+            number4txt=self.put_text("0100",x=880,y=286)
             print (number4txt) 
-            number5txt=self.put_text("0101",x=1765,y=641,size=48)
+            number5txt=self.put_text("0101",x=880,y=320)
             print (number5txt) 
-            number6txt=self.put_text("0110",x=1765,y=710,size=48)
+            number6txt=self.put_text("0110",x=880,y=352)
             print (number6txt) 
-            number7txt=self.put_text("0111",x=1765,y=779,size=48)
+            number7txt=self.put_text("0111",x=880,y=386)
             print (number7txt) 
-            number8txt=self.put_text("1000",x=1765,y=848,size=48)
+            number8txt=self.put_text("1000",x=880,y=420)
             print (number8txt) 
-            number9txt=self.put_text("1001",x=1765,y=917,size=48)
+            number9txt=self.put_text("1001",x=880,y=459)
             print (number9txt) 
-            number10txt=self.put_text("1010",x=1765,y=986,size=48)
+            number10txt=self.put_text("1010",x=880,y=490)
             print (number10txt) 
-            number11txt=self.put_text("1011",x=1765,y=1055,size=48)
+            number11txt=self.put_text("1011",x=880,y=524)
             print (number11txt) 
-            number12txt=self.put_text("1100",x=1765,y=1124,size=48)
+            number12txt=self.put_text("1100",x=880,y=560)
             print (number12txt) 
-            number13txt=self.put_text("1101",x=1765,y=1193,size=48)
+            number13txt=self.put_text("1101",x=880,y=600)
             print (number13txt) 
-            number14txt=self.put_text("1110",x=1765,y=1262,size=48)
+            number14txt=self.put_text("1110",x=880,y=632)
             print (number14txt) 
-            number15txt=self.put_text("1111",x=1765,y=1331,size=48)
+            number15txt=self.put_text("1111",x=880,y=664)
             print (number15txt)
             ############################################## ALU 
-            alutxt=self.put_text("0001-0001",x=1065,y=525,size=48)
+            alutxt=self.put_text("0001-0001",x=535,y=267)
             print (alutxt)
-            flagtxt=self.put_text("Z",x=1145,y=642,size=55)
+            flagtxt=self.put_text("Z",x=565,y=325)
             print (flagtxt)
             ############################################## REGISTERS 
-            outputtxt=self.put_text("0000",x=1000,y=860,size=50) #OUTPUT R
+            outputtxt=self.put_text("0000",x=499,y=435) #OUTPUT R
             print (outputtxt)
-            instruction_registertxt=self.put_text("0001 0001",x=950,y=1099,size=50) #INSTRUCTION R
+            instruction_registertxt=self.put_text("0001 0001",x=470,y=545) #INSTRUCTION R
             print (instruction_registertxt)
-            instruction_adress_registertxt=self.put_text("0010 0001",x=950,y=1299,size=50) #INSTRUCTION ADRESS R
+            instruction_adress_registertxt=self.put_text("0010 0001",x=470,y=645) #INSTRUCTION ADRESS R
             print (instruction_adress_registertxt)
-            registerAtxt=self.put_text("0000 0000",x=198,y=697,size=49) #REGISTER A
+            registerAtxt=self.put_text("0000 0000",x=100,y=350) #REGISTER A
             print (registerAtxt)
-            registerBtxt=self.put_text("0000 0000",x=198,y=888,size=49) #REGISTER B
+            registerBtxt=self.put_text("0000 0000",x=100,y=450) #REGISTER B
             print (registerBtxt)
-            registerCtxt=self.put_text("0000 0000",x=198,y=1100,size=49) #REGISTER C
+            registerCtxt=self.put_text("0000 0000",x=100,y=550) #REGISTER C
             print (registerCtxt)
-            registerDtxt=self.put_text("0000 0000",x=198,y=1309,size=49) #REGISTER D
+            registerDtxt=self.put_text("0000 0000",x=100,y=660) #REGISTER D
             print (registerDtxt)
             ############################################## .CODE FILE DISPLAY 
-            codetxt="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960"
-            lenght_code=len(codetxt)
+            self.codetxt="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960"
+            lenght_code=len(self.codetxt)
             line_start=0#position in string
-            if lenght_code>45:
-                line_space=120#position in display
-                finish_length=45
+            if lenght_code>55:
+                line_space=60#position in display
+                finish_length=55
                 lenght_code_left=lenght_code
-                while lenght_code_left>45: #stops the string displayed from going over the 'Instructios.code' window
-                    displayedtxt=codetxt[line_start:finish_length]
-                    codetxt_displayed=self.put_text("{}".format(displayedtxt),x=69,y=line_space,size=35)
+                while lenght_code_left>55: #stops the string displayed from going over the 'Instructios.code' window
+                    displayedtxt=self.codetxt[line_start:finish_length]
+                    codetxt_displayed=self.put_text("{}".format(displayedtxt),x=32,y=line_space,size=12)
                     print(codetxt_displayed)
-                    line_space+=40
-                    line_start+=45
-                    finish_length=line_start+45
-                    lenght_code_left=lenght_code_left-45
-                displayedtxt=str(codetxt[line_start:])
-                codetxt_displayed=self.put_text("{}".format(displayedtxt),x=69,y=line_space,size=35)
+                    line_space+=20
+                    line_start+=55
+                    finish_length=line_start+55
+                    lenght_code_left=lenght_code_left-55
+                displayedtxt=str(self.codetxt[line_start:])
+                codetxt_displayed=self.put_text("{}".format(displayedtxt),x=32,y=line_space,size=12)
                 print(codetxt_displayed)
             #if it's not necessary (because the string lenght won't go over the window)
             else:
-                codetxt_displayed=self.put_text("{}".format(codetxt[0:45]),x=69,y=120,size=35)
+                codetxt_displayed=self.put_text("{}".format(self.codetxt[0:55]),x=32,y=60,size=12)
                 print(codetxt_displayed)
 
 
             for event in pygame.event.get():
                 print(str(event)) 
                 if event.type == pygame.VIDEORESIZE:
-                    self.display_surface = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
-                    self.image=self.adjust_to_resize(self.image, event, 0.5, 0.5)
-                    #self.image = pygame.transform.scale(self.image, (int(event.w * 0.2), int(event.h*0.2)))
+                    self.display_surface = pygame.display.set_mode(event.w, event.h)
+                    self.image=self.adjust_to_resize(self.image, event, 1, 1)
+
                 if event.type == pygame.QUIT : 
                     pygame.quit()
                     break
