@@ -22,7 +22,6 @@ class cu(IC):
         self.registerD=Registers(data)
 
         self.instruction_register=Registers(data, 8) #shows the selected data that was located in RAM
-        self.instruction_adress_register=Registers("00000000",8) #keeps 
 
         self.output_register=Registers(data)
 
@@ -125,7 +124,7 @@ class cu(IC):
             for x in range(0,14):
                 print("RAM"+str(x)+": " + self.ram.easy_read(x))
         if (self.visualization_registers):
-            print("instruction_adress_register: " + self.instruction_adress_register.read_register())
+            print("instruction_adress_register: " + "{0:b}".format(self.Instructions_memory.c_line))
             print("registerA: " + self.registerA.read_register())
             print("registerB: " + self.registerB.read_register())
             print("registerC " + self.registerC.read_register())

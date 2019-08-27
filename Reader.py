@@ -20,7 +20,7 @@ class CardReader(IC):
     #other bouilder is already passed down by the father
     def __init__(self):
         self.file = ""
-
+        self.c_line = 0
     def check_code(self):
         def check_binary(bistring):
             '''checks if a string is binary'''
@@ -60,7 +60,9 @@ class CardReader(IC):
     def change_line(self, line_number):
         '''Changes the current line to the one passed, if file not found returns 0'''
         if (self.file != ""):
+            int(line_number,2)
             self.file.seek(line_number)
+            self.c_line = line_number
         else:
             return 0
     def read_line(self):
@@ -91,6 +93,7 @@ class CardReader(IC):
             current_line = current_line.replace(" B", "01")
             current_line = current_line.replace(" ", "")
             print("CurrentLine: "+current_line)
+            self.c_line = self.c_line + 1
             return(current_line)
         else:
             return 0
