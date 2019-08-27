@@ -3,6 +3,11 @@ from IC import IC
 '''Class ALU'''
 class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, minimo -7
     o = 0
+    overfl_flag = 0
+    carry_flag = 0
+    error_flag = 0
+    zero_flag = 0
+    neg_flag = 0
 #-------------------------------------------------------------------------------Arithmetic-------------------------------------------------------------------------
     def sum1(self, data1, data2):
         '''Adds the two values'''
@@ -11,11 +16,11 @@ class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, mini
         #sumamos
         result = data1_int + data2_int
         #comprobamos overflow, carry, error, zero y negative
-        overfl_flag = self.overfl(result, data1_int, data2_int)
-        carry_flag = self.carry(result)
-        error_flag = self.error(result, data1_int, data2_int)
-        zero_flag = self.zero(result)
-        neg_flag = self.negative(result)
+        self.overfl_flag = self.overfl(result, data1_int, data2_int)
+        self.carry_flag = self.carry(result)
+        self.error_flag = self.error(result, data1_int, data2_int)
+        self.zero_flag = self.zero(result)
+        self.neg_flag = self.negative(result)
         #convertimos el resultado en binario
         if 15 >= result >= 0: #Cuando es positivo y no tiene overflow
             result = '{0:04b}'.format(result)
@@ -27,7 +32,7 @@ class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, mini
         else: #Cuando hay overflow (Mayor a 4 bits)
             result = "----"
         #llamamos la funcion output como resultado
-        return result, overfl_flag, carry_flag, error_flag, zero_flag, neg_flag 
+        return result
     def sub(self, data1, data2):
         '''Subtracts the two values'''
         data1_int = int(data1, 2)
@@ -35,11 +40,11 @@ class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, mini
         #restamos
         result = data1_int - data2_int
         #comprobamos overflow, carry, error, zero y negative
-        overfl_flag = self.overfl(result, data1_int, data2_int)
-        carry_flag = self.carry(result)
-        error_flag = self.error(result, data1_int, data2_int)
-        zero_flag = self.zero(result)
-        neg_flag = self.negative(result)
+        self.overfl_flag = self.overfl(result, data1_int, data2_int)
+        self.carry_flag = self.carry(result)
+        self.error_flag = self.error(result, data1_int, data2_int)
+        self.zero_flag = self.zero(result)
+        self.neg_flag = self.negative(result)
         #convertimos el resultado en binario
         if 15 >= result >= 0: #Cuando es positivo y no tiene overflow
             result = '{0:04b}'.format(result)
@@ -51,7 +56,7 @@ class ALU(IC): #Maximo de datos es 15, minimo es 0. Maximo de output es 15, mini
         else: #Cuando hay overflow (Mayor a 4 bits)
             result = '----'
         #llamamos la funcion output como resultado
-        return result, overfl_flag, carry_flag, error_flag, zero_flag, neg_flag
+        return result
 
 #----------------------------------------------------------------------Flags---------------------------------------------------------------------------------------
     def overfl(self, resultado, data1_int, data2_int): 

@@ -5,11 +5,6 @@ import Reader
 import time
 import sys
 class cu(IC):
-    visualization_code=True
-    visualization_ram=True
-    visualization_registers=True
-    visualization_clock=True
-    visualization_alu=True
     def __init__(self):
         '''controls and connects everything'''
         self.Instructions_memory = Reader.CardReader()
@@ -95,6 +90,7 @@ class cu(IC):
         elif(opcode == "1001"):
             #Add two registers, store result into second register
             self.registerB.write_register(self.ALU.sum1(self.registerA.read_register(), self.registerB.read_register()))
+
         elif(opcode == "1010"):
             #Subtract two registers, store result into second register
             self.registerB.write_register(self.ALU.sub(self.registerA.read_register(), self.registerB.read_register()))
@@ -136,7 +132,11 @@ class cu(IC):
             print("registerD " + self.registerD.read_register())
             print("instruction_register " + self.instruction_register.read_register())
             print("output_register " + self.output_register.read_register())
-
+        print("overfl_flag: " + self.ALU.overfl)
+        print("carry_flag: " + self.ALU.negative)
+        print("error_flag " + self.ALU.negative)
+        print("zero_flag " + self.ALU.negative)
+        print("neg_flag " + self.ALU.negative)
         print("-"*40)
 
 
