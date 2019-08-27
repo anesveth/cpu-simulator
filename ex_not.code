@@ -1,0 +1,11 @@
+##add two numbers, not the result, subtract first value from not.
+#-----Loads ram into reg-----
+LD_A 0101
+00100111
+#-----Adds regs-----
+1001 A B
+#-----Not the result-----
+1101 B
+#-----Sub-----
+1010 B A
+11111111
