@@ -60,9 +60,9 @@ class CardReader(IC):
     def change_line(self, line_number):
         '''Changes the current line to the one passed, if file not found returns 0'''
         if (self.file != ""):
-            int(line_number,2)
-            self.file.seek(line_number)
-            self.c_line = line_number
+            
+            self.file.seek(int(line_number,2))
+            self.c_line = int(line_number,2)
         else:
             return 0
     def read_line(self):

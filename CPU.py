@@ -121,11 +121,10 @@ class cu(IC):
     def pretty_print(self):
         print("-"*40)
         if (self.visualization_ram):
-            for x in range(0,14):
+            for x in range(0,16):
                 print("RAM"+str(x)+": " + self.ram.easy_read(x))
         if (self.visualization_registers):
-            print(self.Instructions_memory.c_line)
-            print("instruction_adress_register: " + str(self.Instructions_memory.c_line))
+            print("instruction_adress_register: " + "{0:b}".format(self.Instructions_memory.c_line))
             print("registerA: " + self.registerA.read_register())
             print("registerB: " + self.registerB.read_register())
             print("registerC " + self.registerC.read_register())
