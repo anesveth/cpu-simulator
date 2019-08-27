@@ -23,4 +23,5 @@ visualization:
   RAM: true
   Registers: true
   clock: true
-  ALU: false
+  ALU: true
+  

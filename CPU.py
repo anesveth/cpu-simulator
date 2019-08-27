@@ -5,18 +5,18 @@ import Reader
 import time
 import sys
 class cu(IC):
+    visualization_code=True
     visualization_ram=True
     visualization_registers=True
     visualization_clock=True
     visualization_alu=True
-    visualization_code=True
-
     def __init__(self):
         '''controls and connects everything'''
         self.Instructions_memory = Reader.CardReader()
         print("Ingresa nombre del codigo (sin el .code)")
         file_name = input()
         data=[""]*8 #creating data
+        
         self.Instructions_memory.change_file(file_name)
 
         self.ALU = ALU.ALU()
@@ -30,6 +30,31 @@ class cu(IC):
         self.instruction_adress_register=Registers("00000000",8) #keeps 
 
         self.output_register=Registers(data)
+
+        data_bios=Reader.YamlReader().yaml_loader()
+        ### variables to assign to CPU parts
+        ramdata=data_bios.get('RAM_NUMBERS')
+        ramdata=ramdata.split(' ')
+        clockdata=data_bios.get('clock')
+        visualizationdata=data_bios.get('visualization')
+        ##asigns all ram data to each ram space
+        for i in range(16):
+            adress=bin(i)[2:]
+            if len(adress)<4:
+                if len(adress)==1:
+                    adress="000"+adress
+                if len(adress)==2:
+                    adress="00"+adress
+                if len(adress)==3:
+                    adress="0"+adress
+            self.ram.write_enable(adress,ramdata[i])
+        visualization_code=visualizationdata['code']
+        visualization_ram=visualizationdata['RAM']
+        visualization_registers=visualizationdata['Registers']
+        visualization_clock=visualizationdata['clock']
+        visualization_alu=visualizationdata['ALU']
+        
+
     def decode_execute(self):
         self.instruction_register.write_register(str(self.Instructions_memory.read_line()))
         opcode = self.instruction_register.read_register()[0:4]

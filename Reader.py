@@ -11,29 +11,8 @@ class YamlReader(IC):
         with open(self.filepath,"r") as config:
             data=yaml.load(config)
         return data
-data=YamlReader().yaml_loader()
-### variables to assign to CPU parts
-ramdata=data.get('RAM_NUMBERS')
-ramdata=ramdata.split(' ')
-clockdata=data.get('clock')
-visualizationdata=data.get('visualization')
-visualizationdata=visualizationdata.split(' ')
-##asigns all ram data to each ram space
-for i in range(16):
-    adress=bin(i)[2:]
-    if len(adress)<4:
-        if len(adress)==1:
-            adress="000"+adress
-        if len(adress)==2:
-            adress="00"+adress
-        if len(adress)==3:
-            adress="0"+adress
-    CPU.intel99.ram.write_enable(adress,ramdata[i])
-CPU.intel99.visualization_code=bool(visualizationdata[0])
-CPU.intel99.visualization_ram=bool(visualizationdata[1])
-CPU.intel99.visualization_registers=bool(visualizationdata[2])
-CPU.intel99.visualization_clock=bool(visualizationdata[3])
-CPU.intel99.visualization_alu=bool(visualizationdata[4])
+
+
 
 
 class CardReader(IC):
